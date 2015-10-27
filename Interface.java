@@ -14,23 +14,19 @@ import java.util.Scanner;
 	 private ListElement p = new ListElement();
 	 int firstitem = 0;
 	 private int numNodes = 0;
+	 
+	 Interface()
+	 {
+		 p = null;
+		 head = null;
+	 }
 	 public void addElement(ListElement le){
-		ListElement temp = new ListElement();
-		temp.setData(le.getData());
-		if(firstitem == 0)
-		{
-			head = temp;
-			firstitem = 1;
-		}
-		else
-		{
-			p = head;
-			while(p.getNext() != null)
-			{
-				p = p.getNext();
-			}
-			p.setNext(temp);	
-		}
+		ListElement q = new ListElement();
+		ListElement prevptr = new ListElement();
+		p = head;
+		q.setData(le.getData());
+		q.setNext(null);
+		prevptr = p.getPrev();
 		numNodes++;
 	 }
 	 
