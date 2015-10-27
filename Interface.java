@@ -13,7 +13,7 @@ import java.util.Scanner;
 	 private ListElement head = new ListElement();
 	 private ListElement tail = new ListElement();
 	 private ListElement p = new ListElement();
-	 int firstitem = 0;
+	 private int firstitem = 0;
 	 private int numNodes = 0;
 	 
 	 Interface()
