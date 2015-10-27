@@ -9,6 +9,7 @@
 	 private ListElement next; // = new ListElement();
 	 private ListElement previous; // = new ListElement();
 	 private int data;
+	 private int mark;
 	 
 	 public ListElement()
 	 {
