@@ -11,6 +11,7 @@ import java.util.Scanner;
  public class Interface
  {
 	 private ListElement head = new ListElement();
+	 private ListElement tail = new ListElement();
 	 private ListElement p = new ListElement();
 	 int firstitem = 0;
 	 private int numNodes = 0;
@@ -18,7 +19,6 @@ import java.util.Scanner;
 	 Interface()
 	 {
 		 p = null;
-		 head = null;
 	 }
 	 public void addElement(ListElement le){
 		ListElement q = new ListElement();
@@ -26,7 +26,22 @@ import java.util.Scanner;
 		p = head;
 		q.setData(le.getData());
 		q.setNext(null);
-		prevptr = p.getPrev();
+		prevptr = head;
+		while(p != null)
+		{
+			prevptr = p;
+			p = p.getNext();
+		}
+		if(numNodes == 0)
+		{
+			head = q;
+		}
+		else
+		{
+			prevptr.setNext(q);
+			q.setPrev(prevptr);
+			tail = q;
+		}
 		numNodes++;
 	 }
 	 
@@ -46,6 +61,8 @@ import java.util.Scanner;
 		if(index == 0)
 		{
 			head = p.getNext();
+			p.getNext().setPrev(null);
+			numNodes--;
 		}
 		else
 		{
@@ -55,13 +72,26 @@ import java.util.Scanner;
 				p = p.getNext();
 			}
 			prevptr.setNext(p.getNext());
+			p.getNext().setPrev(prevptr);
 			numNodes--;
 		}
 		return p;
 	 }
 	 
 	 public void printLinkedListTail(){
-		 
+		p = tail;
+		while(p != null)
+		{
+			if(p.getPrev() == null)
+			{
+				System.out.println(p.getData());
+			}
+			else
+			{
+				System.out.print(p.getData() + ", ");
+			}
+			p = p.getPrev();
+		}
 	 }
 	 
 	 public void printLinkedListHead(){
@@ -84,6 +114,11 @@ import java.util.Scanner;
 	 {
 		 return numNodes;
 	 }
+	 
+	 public int getHead()
+	 {
+		 return head.getData();
+	 }
 	 // Start main function
 	 public static void main(String[] args)
 	{
@@ -94,7 +129,8 @@ import java.util.Scanner;
 		System.out.println("a = add element");
 		System.out.println("g = get element");
 		System.out.println("d = delete element");
-		System.out.println("p = print list");
+		System.out.println("ph = print list");
+		System.out.println("pt = print list");
 		System.out.println("q = quit");
 	
 		String choice = "";
@@ -109,7 +145,7 @@ import java.util.Scanner;
 				System.out.print("Enter value: ");
 				value = indata.nextInt();
 				le.setData(value);
-				list.addElement(le);	
+				list.addElement(le);
 			}
 			else if(choice.equals("g"))
 			{
@@ -137,9 +173,13 @@ import java.util.Scanner;
 					list.deleteElement(value);
 				}
 			}
-			else if(choice.equals("p"))
+			else if(choice.equals("ph"))
 			{
 				list.printLinkedListHead();
+			}
+			else if(choice.equals("pt"))
+			{
+				list.printLinkedListTail();
 			}
 			else if(!(choice.equals("q")))
 			{
